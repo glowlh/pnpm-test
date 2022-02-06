@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  init:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Use Node.js 16
@@ -26,18 +26,5 @@ jobs:
       run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
     - name: Install dependencies
       run: pnpm i
-      
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: pnpm run build:js
+    - name: Build packages
+      run: pnpm build:js
