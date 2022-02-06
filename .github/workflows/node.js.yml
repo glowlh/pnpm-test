@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+        GITHUB_ACCESS_TOKEN: ${{secrets.PACKAGES_TOKEN_GITHUB}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -22,6 +24,8 @@ jobs:
     - name: reattach HEAD to Ref
       run: git checkout "$(echo ${{ github.ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
       if: github.head_ref == ''
+    - name: Add auth token for npm packages
+      run: echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN_GITHUB }}\n@indriver:registry=https://npm.pkg.github.com" > .npmrc
     - name: Use Node.js 16
       uses: actions/setup-node@v2
       with:
