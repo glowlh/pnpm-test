@@ -30,5 +30,7 @@ jobs:
       run: npm install -g pnpm
     - name: 🎈 Install dependencies
       run: pnpm i
+    - name: Show folder
+      run: echo "`ls -la`"
     - name: 🧬 Build packages
       run: pnpm build:js
