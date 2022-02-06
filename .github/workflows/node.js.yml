@@ -22,9 +22,13 @@ jobs:
       with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-node16-${{ hashFiles('**/pnpm-lock.yaml') }}
-    - name: Install pnpm
+    - name: 💈 Node
+      run: echo "v`node -v`"
+    - name: 💈 NPM
+      run: echo "v`npm -v`"
+    - name: 🎈 Install pnpm
       run: npm install -g pnpm
-    - name: Install dependencies
+    - name: 🎈 Install dependencies
       run: pnpm i
-    - name: Build packages
+    - name: 🧬 Build packages
       run: pnpm build:js
